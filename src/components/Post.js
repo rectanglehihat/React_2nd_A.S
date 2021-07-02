@@ -35,7 +35,7 @@ Post.defaultProps = {
         user_profile: "https://s3.ap-northeast-2.amazonaws.com/elasticbeanstalk-ap-northeast-2-176213403491/media/magazine_img/magazine_327/7ae22985-90e8-44c3-a1d6-ee470ddc9073.jpg",    
     },
     image_url: "https://s3.ap-northeast-2.amazonaws.com/elasticbeanstalk-ap-northeast-2-176213403491/media/magazine_img/magazine_327/7ae22985-90e8-44c3-a1d6-ee470ddc9073.jpg",
-    contents: "눈싸움 하자는거야?",
+    contents: "니가 날 이길 수 있을까",
     comment_cnt: 10,
     insert_dt: "2021-02-27 10:00:00",
 };

@@ -10,7 +10,7 @@ const Post = (props) => {
     return (
         <React.Fragment>
             <Grid>
-                <Grid is_flex>
+                <Grid is_flex width="auto" padding="4px 16px">
                     <Image shape="circle" src={props.src}/>
                     <Text bold>{props.user_info.user_name}</Text>
                     <Text>{props.insert_dt}</Text>
@@ -22,7 +22,7 @@ const Post = (props) => {
                     <Image shape="rectangle" src={props.src}/>
                 </Grid>
                 <Grid padding="16px">
-                    <Text bold>댓글 {props.comment_cnt}개</Text>
+                    <Text margin="0px" bold>댓글 {props.comment_cnt}개</Text>
                 </Grid>
             </Grid>
         </React.Fragment>
@@ -35,7 +35,7 @@ Post.defaultProps = {
         user_profile: "https://s3.ap-northeast-2.amazonaws.com/elasticbeanstalk-ap-northeast-2-176213403491/media/magazine_img/magazine_327/7ae22985-90e8-44c3-a1d6-ee470ddc9073.jpg",    
     },
     image_url: "https://s3.ap-northeast-2.amazonaws.com/elasticbeanstalk-ap-northeast-2-176213403491/media/magazine_img/magazine_327/7ae22985-90e8-44c3-a1d6-ee470ddc9073.jpg",
-    contents: "니가 날 이길 수 있을까",
+    contents: "힘내라 힘",
     comment_cnt: 10,
     insert_dt: "2021-02-27 10:00:00",
 };

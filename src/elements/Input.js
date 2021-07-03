@@ -4,22 +4,46 @@ import {Text, Grid} from "./index";
 
 
 const Input = (props) => {
-    const {label, placeholder, _onChange} = props;
+    const {label, placeholder, _onChange, type, multiLine} = props;
+
+    if (multiLine){
+        return (
+            <Grid>
+                {label &&  <Text margin="0px">{label}</Text>}
+                <Text margin="0px">{label}</Text>
+                <ElTextarea 
+                rows={10}
+                placeholder={placeholder} 
+                onChange={_onChange}
+                ></ElTextarea>
+            </Grid>
+        )
+    }
+
     return(
         <React.Fragment>
             <Grid>
-                <Text margin="0px">{label}</Text>
-                <ElInut placeholder={placeholder} onChange={_onChange}/>
+                {label &&  <Text margin="0px">{label}</Text>}
+                <ElInut type={type} placeholder={placeholder} onChange={_onChange}/>
             </Grid>
         </React.Fragment>
     )
 }
 
 Input.defaultProps = {
-    label: '텍스트',
+    multiLine: false,
+    label: false,
     placeholder: '텍스트를 입력해주세요.',
-    _onChange: () => {}
+    _onChange: () => {},
+    type: 'text',
 }
+
+const ElTextarea = styled.textarea`
+    border: 1px solid #212121;
+    width: 100%;
+    padding: 12px 4px;
+    box-sizing: border-box;
+`;
 
 const ElInut = styled.input`
     border: 1px solid #212121;

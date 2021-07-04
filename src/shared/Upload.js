@@ -1,9 +1,12 @@
 import React from "react";
+import { useDispatch, useSelector } from "react-redux";
 import {Button} from "../elements"
 import { storage } from "./firebase";
 
 
 const Upload = (props) => {
+    const dispatch = useDispatch();
+    const is_uploading = useSelector((state) => state.image.uploading);
     const fileInput = React.useRef();
 
     const selectFile = (e) => {
@@ -28,7 +31,7 @@ const Upload = (props) => {
 
     return(
         <React.Fragment>
-            <input type="file" onChange={selectFile} ref={fileInput}/>
+            <input type="file" onChange={selectFile} ref={fileInput} disabled={is_uploading}/>
             <Button _onClick={uploadFB}>업로드하기</Button>
         </React.Fragment>
     )

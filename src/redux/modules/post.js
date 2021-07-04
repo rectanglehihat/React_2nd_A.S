@@ -1,6 +1,7 @@
 import { createAction, handleActions } from "redux-actions";
 import { produce } from "immer";
 import { firestore } from "../../shared/firebase";
+import moment from "moment";
 
 
 const SET_POST = "SET_POST";
@@ -17,15 +18,45 @@ const initialState = {
 
 // 게시글 하나에는 어떤 정보가 있어야 하는 지 하나 만들어둡시다! :)
 const initialPost = {
-  user_info: {
-		id: 0,
-    user_name: "hyoni",
-    user_profile: "https://s3.ap-northeast-2.amazonaws.com/elasticbeanstalk-ap-northeast-2-176213403491/media/magazine_img/magazine_327/7ae22985-90e8-44c3-a1d6-ee470ddc9073.jpg",
-  },
+  // user_info: {
+	// 	id: 0,
+  //   user_name: "hyoni",
+  //   user_profile: "https://s3.ap-northeast-2.amazonaws.com/elasticbeanstalk-ap-northeast-2-176213403491/media/magazine_img/magazine_327/7ae22985-90e8-44c3-a1d6-ee470ddc9073.jpg",
+  // },
   image_url: "https://s3.ap-northeast-2.amazonaws.com/elasticbeanstalk-ap-northeast-2-176213403491/media/magazine_img/magazine_327/7ae22985-90e8-44c3-a1d6-ee470ddc9073.jpg",
-  contents: "애옹쓰 힘내라",
-  comment_cnt: 10,
-  insert_dt: "2021-02-27 10:00:00",
+  contents: "",
+  comment_cnt: 0,
+  insert_dt: moment().format("YYYY-MM-DD hh:mm:ss"),
+};
+
+
+const addPostFB = (contents="") => {
+  return function (dispatch, getState, {history}){
+    const postDB = firestore.collection("post");
+
+    const _user = getState().user.user;
+
+    const user_info = {
+      user_name : _user.user_name,
+      uer_id: _user.uid,
+      user_profile: _user.user_profile,
+    };
+
+    const _post = {
+      ...initialPost,
+      contents: contents,
+      insert_dt: moment().format("YYYY-MM-DD hh:mm:ss"),
+    };
+
+    postDB.add({...user_info, ..._post}).then((doc) => {
+      //파베랑 디럭스 데이터 모양새 맞추가
+      let post = {user_info, ..._post, id:doc.id};
+      dispatch(addPost(post));
+      history.replace("/");
+    }).catch((err) => {
+      console.log("post작성에 실패했어요!", err);
+    })
+  }
 };
 
 const getPostFB = () => {
@@ -63,7 +94,7 @@ export default handleActions(
         }),
   
         [ADD_POST]: (state, action) => produce(state, (draft) => {
-            
+          draft.list.unshift(action.payload.post);
         })
     },
     initialState
@@ -73,7 +104,8 @@ export default handleActions(
 const actionCreators = {
     setPost,
     addPost,
-    getPostFB
+    getPostFB,
+    addPostFB,
   };
   
   export { actionCreators };

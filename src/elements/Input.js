@@ -9,7 +9,6 @@ const Input = (props) => {
     if (multiLine){
         return (
             <Grid>
-                {label &&  <Text margin="0px">{label}</Text>}
                 <Text margin="0px">{label}</Text>
                 <ElTextarea 
                 rows={10}
@@ -23,7 +22,7 @@ const Input = (props) => {
     return(
         <React.Fragment>
             <Grid>
-                {label &&  <Text margin="0px">{label}</Text>}
+                <Text margin="0px">{label}</Text>
                 <ElInut type={type} placeholder={placeholder} onChange={_onChange}/>
             </Grid>
         </React.Fragment>

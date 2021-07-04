@@ -45,7 +45,7 @@ function App() {
             <Route path="/post/:id" exact component={PostDetail}/>
         </ConnectedRouter>
       </Grid>
-        <Button is_float text="+"></Button>
+        <Button is_float text="+" _onClick={() => {history.push('/write')}}></Button>
     </React.Fragment>
   );
 }

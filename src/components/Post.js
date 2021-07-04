@@ -19,7 +19,7 @@ const Post = (props) => {
                     <Text bold>{props.contents}</Text>
                 </Grid>
                 <Grid>
-                    <Image shape="rectangle" src={props.src}/>
+                    <Image shape="rectangle" src={props.image_url}/>
                 </Grid>
                 <Grid padding="16px">
                     <Text margin="0px" bold>댓글 {props.comment_cnt}개</Text>

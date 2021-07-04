@@ -1,7 +1,9 @@
 import { createAction, handleActions } from "redux-actions";
 import { produce } from "immer";
-import { firestore } from "../../shared/firebase";
+import { firestore, storage } from "../../shared/firebase";
 import moment from "moment";
+
+import { actionCreators as imageActions } from "./image";
 
 
 const SET_POST = "SET_POST";
@@ -48,16 +50,49 @@ const addPostFB = (contents="") => {
       insert_dt: moment().format("YYYY-MM-DD hh:mm:ss"),
     };
 
-    postDB.add({...user_info, ..._post}).then((doc) => {
-      //파베랑 디럭스 데이터 모양새 맞추가
-      let post = {user_info, ..._post, id:doc.id};
-      dispatch(addPost(post));
-      history.replace("/");
-    }).catch((err) => {
-      console.log("post작성에 실패했어요!", err);
-    })
-  }
+    // 게시글 작성할 때 이미지 업로드
+    const _image = getState().image.preview;
+    console.log(typeof _image);
+
+    const _upload = storage.ref(`images/${user_info.user_id}_${new Date().getTime()}`).putString(_image, "data_url");
+   
+    _upload
+      .then((snapshot) => {
+        snapshot.ref
+          .getDownloadURL()
+          .then((url) => {
+            // url을 확인해봐요!
+            console.log(url);
+            dispatch(imageActions.uploadImage(url));
+            return url;
+          })
+          .then((url) => {
+            // return으로 넘겨준 값이 잘 넘어왔나요? :)
+            // 다시 콘솔로 확인해주기!
+            console.log(url);
+
+            postDB
+              .add({ ...user_info, ..._post, image_url: url })
+              .then((doc) => {
+                // 아이디를 추가해요!
+                let post = { user_info, ..._post, id: doc.id, image_url: url };
+                // 이제 리덕스에 넣어봅시다.
+                dispatch(addPost(post));
+                history.replace("/");
+              })
+              .catch((err) => {
+								window.alert("앗! 포스트 작성에 문제가 있어요!");
+                console.log("post 작성 실패!", err);
+              });
+          });
+      })
+      .catch((err) => {
+				window.alert("앗! 이미지 업로드에 문제가 있어요!");
+        console.log(err);
+      });
+  };
 };
+
 
 const getPostFB = () => {
     return function (dispatch, getState, {history}){

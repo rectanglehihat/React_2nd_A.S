@@ -12,6 +12,7 @@ import {Button, Grid} from "../elements";
 import Signup from "../pages/Signup";
 import PostWrite from "../pages/PostWrite";
 import PostDetail from "../pages/PostDetail"
+import Search from "./Search";
 
 import  {useDispatch} from "react-redux";
 import {actionCreators as userActions} from "../redux/modules/user";
@@ -43,6 +44,7 @@ function App() {
             <Route path="/signup" exact component={Signup}/>
             <Route path="/write" exact component={PostWrite}/>
             <Route path="/post/:id" exact component={PostDetail}/>
+            <Route path="/search" exact component={Search}/>
         </ConnectedRouter>
       </Grid>
         <Button is_float text="+" _onClick={() => {history.push('/write')}}></Button>

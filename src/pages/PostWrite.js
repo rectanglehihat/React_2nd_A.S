@@ -2,7 +2,7 @@ import React from "react";
 import {Grid, Text, Button, Image, Input} from "../elements"
 import Upload from "../shared/Upload";
 
-import {useSelector, useDispatch} from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { actionCreators as postActions } from "../redux/modules/post";
 import { actionCreators as imageActions } from "../redux/modules/image";
 

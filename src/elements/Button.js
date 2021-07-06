@@ -18,11 +18,11 @@ const styles = {
     padding: padding,
 };
 
-        return (
-            <React.Fragment>
-                <ElButton {...styles} onClick={_onClick}>{text? text : children}</ElButton>
-            </React.Fragment>
-        );
+return (
+    <React.Fragment>
+        <ElButton {...styles} onClick={_onClick}>{text? text : children}</ElButton>
+    </React.Fragment>
+);
 };
 
 Button.defaultProps = {

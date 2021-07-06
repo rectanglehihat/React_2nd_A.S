@@ -16,9 +16,9 @@ const Post = (props) => {
 
                     <Grid is_flex width="auto">
                         <Text>{props.insert_dt}</Text>
-                        {props.is_me && <Button width="auto" padding="4px" margin="4px" _onClick={() => {
+                        {props.is_me && (<Button width="auto" padding="4px" margin="4px" _onClick={() => {
                             history.push(`/write/${props.id}`)
-                        }}>수정</Button>}
+                        }}>수정</Button>)}
                     </Grid>
                 </Grid>
                 <Grid padding="16px">

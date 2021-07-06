@@ -67,7 +67,13 @@ const signupFB = (id, pwd, user_name) => {
           auth.currentUser.updateProfile({
             displayName: user_name,
           }).then(()=>{
-            dispatch(setUser({user_name: user_name, id: id, user_profile: '', uid: user.user.uid,}));
+            dispatch(setUser({
+                user_name: user_name, 
+                id: id, 
+                user_profile: '', 
+                uid: user.user.uid,
+            })
+        );
             history.push('/');
           }).catch((error) => {
             console.log(error);

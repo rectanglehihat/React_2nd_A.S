@@ -37,6 +37,7 @@ const Post = (props) => {
 // 필요한 props 미리 넘겨 놓기(화면 깨짐이나 오류 방지)
 Post.defaultProps = {
     user_info: {
+        user_id: null,
         user_name: "hyoni",
         user_profile: "https://s3.ap-northeast-2.amazonaws.com/elasticbeanstalk-ap-northeast-2-176213403491/media/magazine_img/magazine_327/7ae22985-90e8-44c3-a1d6-ee470ddc9073.jpg",    
     },
